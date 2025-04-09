@@ -34,7 +34,8 @@ public class LoanManagement {
 	          System.out.println("4. Loan Repayment");
 	          System.out.println("5  Check Loan Status");
 	          System.out.println("6. Check EMI");
-	          System.out.println("7. Exit");
+	          System.out.println("7. Check Interest");
+	          System.out.println("8. Exit");
 	          System.out.print("Enter your choice: ");
 	          choice = sc.nextInt();
 	          
@@ -57,8 +58,11 @@ public class LoanManagement {
 	          case 6:
 	        	  CHeckEMI();
 	        	  break;
+	          case 7:
+	        	  CHeckInterest();
+	        	  break;
 	          }
-		}while(choice!=7);
+		}while(choice!=8);
 		
 	}
 	
@@ -181,5 +185,20 @@ public class LoanManagement {
          } catch (Exception e) {
              System.out.println("Unexpected Error: " + e.getMessage());
          }
+	}
+	
+	public static void CHeckInterest() {
+		 System.out.print("Enter Loan ID: ");
+        int loanId = sc.nextInt();
+        try {
+			double val = iloan.calculateInterest(loanId);
+			System.out.println("Interset is:"+val);
+		} catch (InvalidLoanException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("Database Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected Error: " + e.getMessage());
+        }
 	}
 }
