@@ -40,7 +40,7 @@ public class CustomerTest {
 	@Test
 	public void testtostring() {
 		Customer c1 = new Customer(1,"John Doe", "john.doe@example.com", "9876543210", "123 Main Street, New York, NY", 700);
-		String res ="Customer(customerId=1, name=John Doe, emailAddress=john.doe@example.com, phoneNumber=9876543210, address=123 Main Street, New York, NY, creditScore=700)";
+		String res ="Customer(customerId=1)";
 		assertEquals(res,c1.toString() );
 	}
 

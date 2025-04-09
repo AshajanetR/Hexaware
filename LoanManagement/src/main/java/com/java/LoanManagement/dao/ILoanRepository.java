@@ -13,15 +13,15 @@ public interface ILoanRepository {
 
 	double calculateInterest(double principal, double rate, int term);
 
-	void loanStatus(int loanId) throws ClassNotFoundException, SQLException, InvalidLoanException;
+	String loanStatus(int loanId) throws ClassNotFoundException, SQLException, InvalidLoanException;
 
 	double calculateEMI(int loanId) throws ClassNotFoundException, SQLException, InvalidLoanException;
 
 	double calculateEMI(double principalAmount, double annualInterestRate, int loanTermInMonths);
 
-	void loanRepayment(int loanId, double amount) throws ClassNotFoundException, SQLException, InvalidLoanException;
+	void loanRepayment(int loanId, double amount) throws ClassNotFoundException, SQLException, InvalidLoanException, Exception;
 
 	List<Loan> getAllLoan() throws ClassNotFoundException, SQLException;
 
-	void getLoanById(int loanId) throws ClassNotFoundException, SQLException, InvalidLoanException;
+	Loan getLoanById(int loanId) throws ClassNotFoundException, SQLException, InvalidLoanException;
 }

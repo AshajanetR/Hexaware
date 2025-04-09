@@ -1,5 +1,5 @@
 package com.java.LoanManagement.model;
 
-public enum LoanType {
+public enum loanType {
 	 CarLoan, HomeLoan
 }

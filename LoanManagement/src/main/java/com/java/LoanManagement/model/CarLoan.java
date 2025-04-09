@@ -11,17 +11,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 
-
-public class Customer {
-	private int customerId;
-    private String name;
-    private String emailAddress;
-    private String phoneNumber;
-    private String address;
-    private int creditScore;
+public class CarLoan extends Loan {
+    private String carModel;
+    private int carValue;
     
     @Override
     public String toString() {
-        return "Customer(customerId=" + customerId + ")";
+        return super.toString() +
+               ", carModel=" + carModel +
+               ", carValue=" + carValue + ")";
     }
+
 }

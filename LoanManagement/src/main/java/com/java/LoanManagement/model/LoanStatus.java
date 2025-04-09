@@ -1,5 +1,5 @@
 package com.java.LoanManagement.model;
 
-public enum LoanStatus {
+public enum loanStatus {
 	Pending, Approved ,Rejected
 }
