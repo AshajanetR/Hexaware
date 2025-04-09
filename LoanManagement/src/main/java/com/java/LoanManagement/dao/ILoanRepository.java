@@ -1,6 +1,7 @@
 package com.java.LoanManagement.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.java.LoanManagement.exception.InvalidLoanException;
 import com.java.LoanManagement.model.Loan;
@@ -20,7 +21,7 @@ public interface ILoanRepository {
 
 	void loanRepayment(int loanId, double amount) throws ClassNotFoundException, SQLException, InvalidLoanException;
 
-	void getAllLoan() throws ClassNotFoundException, SQLException;
+	List<Loan> getAllLoan() throws ClassNotFoundException, SQLException;
 
 	void getLoanById(int loanId) throws ClassNotFoundException, SQLException, InvalidLoanException;
 }

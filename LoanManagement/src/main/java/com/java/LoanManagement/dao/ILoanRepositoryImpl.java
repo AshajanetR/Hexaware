@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.java.LoanManagement.exception.InvalidLoanException;
 import com.java.LoanManagement.model.Loan;
 import com.java.LoanManagement.model.LoanStatus;
+import com.java.LoanManagement.model.LoanType;
 import com.java.LoanManagement.util.ConnectionHelper;
 
 public class ILoanRepositoryImpl implements ILoanRepository{
@@ -224,48 +227,35 @@ public class ILoanRepositoryImpl implements ILoanRepository{
 	}
 	
 	@Override
-	public void getAllLoan() throws ClassNotFoundException, SQLException {
+	public List<Loan> getAllLoan() throws ClassNotFoundException, SQLException {
 	    connection = ConnectionHelper.getConnection();
 
 	    String query = "SELECT * FROM Loan";
 	    pst = connection.prepareStatement(query);
 	    ResultSet rs = pst.executeQuery();
-
-	    boolean found = false;
-
-	    while (rs.next()) {
-	        found = true;
-	        System.out.println("Loan ID: " + rs.getInt("loanId"));
-	        System.out.println("Customer ID: " + rs.getInt("customerId"));
-	        System.out.println("Principal Amount: " + rs.getDouble("principalAmount"));
-	        System.out.println("Interest Rate: " + rs.getDouble("interestRate"));
-	        System.out.println("Loan Term: " + rs.getInt("loanTerm"));
-	        System.out.println("Loan Type: " + rs.getString("loanType"));
-	        System.out.println("Loan Status: " + rs.getString("loanStatus"));
-
-	        String propertyAddress = rs.getString("propertyAddress");
-	        if (propertyAddress != null) {
-	            System.out.println("Property Address: " + propertyAddress);
-	            System.out.println("Property Value: " + rs.getInt("propertyValue"));
-	        }
-
-	        
-	        String carModel = rs.getString("carModel");
-	        if (carModel != null) {
-	            System.out.println("Car Model: " + carModel);
-	            System.out.println("Car Value: " + rs.getInt("carValue"));
-	        }
-
-	        System.out.println("------------------------------------------");
+        
+	    Loan l = null;
+	    List <Loan> loanlist = new ArrayList<>();
+	    while(rs.next()) {
+	    	l = new Loan();
+	    	l.setLoanId(rs.getInt("loanId"));
+	    	l.setCustomerId(rs.getInt("customerId"));
+	    	l.setPrincipalAmount(rs.getDouble("principalAmount"));
+	    	l.setInterestRate(rs.getDouble("interestRate"));
+	    	l.setLoanTerm(rs.getInt("loanTerm"));
+	    	l.setLoanType(LoanType.valueOf(rs.getString("loanType")));
+	    	l.setLoanStatus(LoanStatus.valueOf(rs.getString("loanStatus")));
+	    	l.setPropertyAddress(rs.getString("propertyAddress"));
+	    	l.setPropertyValue(rs.getInt("propertyValue"));
+	    	l.setCarModel(rs.getString("carModel"));
+	    	l.setCarValue(rs.getInt("carValue"));
+	    	
+	    	loanlist.add(l);
 	    }
-
-	    if (!found) {
-	        System.out.println("No loans found.");
-	    }
-
 	    rs.close();
 	    pst.close();
 	    connection.close();
+	    return loanlist;
 	}
     
 	@Override

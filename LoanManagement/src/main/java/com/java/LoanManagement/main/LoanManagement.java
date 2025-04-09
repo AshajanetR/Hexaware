@@ -1,6 +1,7 @@
 package com.java.LoanManagement.main;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 import com.java.LoanManagement.dao.ILoanRepository;
@@ -32,7 +33,8 @@ public class LoanManagement {
 	          System.out.println("3. Get Loan by ID");
 	          System.out.println("4. Loan Repayment");
 	          System.out.println("5  Check Loan Status");
-	          System.out.println("6. Exit");
+	          System.out.println("6. Check EMI");
+	          System.out.println("7. Exit");
 	          System.out.print("Enter your choice: ");
 	          choice = sc.nextInt();
 	          
@@ -52,8 +54,11 @@ public class LoanManagement {
 	          case 5:
 	        	  LoanStatusMain();
 	        	  break;
+	          case 6:
+	        	  CHeckEMI();
+	        	  break;
 	          }
-		}while(choice!=6);
+		}while(choice!=7);
 		
 	}
 	
@@ -106,7 +111,10 @@ public class LoanManagement {
 	
 	public static void getAllLoanMain() {
 			try {
-				iloan.getAllLoan();
+				List <Loan> loans =iloan.getAllLoan();
+				for (Loan loan : loans) {
+					System.out.println(loan);
+				}
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -158,5 +166,20 @@ public class LoanManagement {
         } catch (Exception e) {
             System.out.println("Unexpected Error: " + e.getMessage());
         }
+	}
+	
+	public static void CHeckEMI() {
+		 System.out.print("Enter Loan ID: ");
+         int loanId = sc.nextInt();
+         try {
+ 			double val = iloan.calculateEMI(loanId);
+ 			System.out.println(" monthly EMI is:"+val);
+ 		} catch (InvalidLoanException e) {
+             System.out.println("Error: " + e.getMessage());
+         } catch (SQLException | ClassNotFoundException e) {
+             System.out.println("Database Error: " + e.getMessage());
+         } catch (Exception e) {
+             System.out.println("Unexpected Error: " + e.getMessage());
+         }
 	}
 }
